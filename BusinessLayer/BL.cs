@@ -17,14 +17,32 @@ namespace BusinessLayer
             dal = new DAL();
         }
 
-        public void addProduct(product p)
+        
+
+        public product getProduct(long ID)
         {
-            dal.addProduct(p);
+            return dal.getProduct(ID);
         }
 
-        public string getGoogleData()
+        public List<buy> getGoogleData()
         {
-            return GoogleAPI.getGoogleData();
+            return dal.getBuys();
+        }
+
+        public void updateProduct(product p)
+        {
+            dal.updateProduct(p);
+        }
+
+        public List<buy> getAndUpdateFromGoogleBuys()
+        {
+            dal.updateFromGoogle();
+            return dal.getBuys();
+        }
+
+        public void updateBuy(buy b)
+        {
+            dal.updateBuy(b);
         }
     }
 }

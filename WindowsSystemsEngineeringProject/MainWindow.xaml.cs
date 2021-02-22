@@ -22,19 +22,27 @@ namespace WindowsSystemsEngineeringProject
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static BusinessLayer.BL bl;
+        private BL bl;
+        public List<shoppingUserControl> shoppingUserControls;
         public MainWindow()
         {
             bl = new BL();
+
             InitializeComponent();
+
+            shoppingUserControls = new List<shoppingUserControl>();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-           
-            
 
-            MessageBox.Show(bl.getGoogleData());
+        private void btnApprove_Click(object sender, RoutedEventArgs e)
+        {
+            approveWindows approveWindows = new approveWindows();
+            approveWindows.ShowDialog();
+        }
+
+        private void btnAllApprovedBuys_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

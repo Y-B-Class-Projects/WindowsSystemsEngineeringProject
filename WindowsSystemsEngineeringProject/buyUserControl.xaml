@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="WindowsSystemsEngineeringProject.shoppingUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WindowsSystemsEngineeringProject"
+             mc:Ignorable="d" Height="100" Width="500">
+    <Grid x:Name="UserContrilGrid">
+        <Button Content="" HorizontalAlignment="Left" Margin="92,20,0,0" VerticalAlignment="Top" Width="60" Height="60" BorderBrush="White" BorderThickness="0" >
+            <Button.Background>
+                <ImageBrush ImageSource="Pictures/X_mark.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="btnOK" Content="" HorizontalAlignment="Left" Margin="10,15,0,15" Width="70" BorderBrush="White" BorderThickness="0" Click="btnOK_Click" >
+            <Button.Background>
+                <ImageBrush ImageSource="Pictures/V_mark.png"/>
+            </Button.Background>
+        </Button>
+        <TextBox x:Name="txtAmout" HorizontalAlignment="Left" Margin="257,40,0,40" TextWrapping="Wrap" Text="{Binding amount, Mode=TwoWay}" Width="69" TextAlignment="Center"/>
+        <TextBox HorizontalAlignment="Left" Margin="183,15,0,65" TextWrapping="Wrap" Text="{Binding product.productName}" Width="217" TextAlignment="Center" IsEnabled="False"/>
+        <TextBox x:Name="txtPrice" HorizontalAlignment="Left" Margin="183,40,0,40" TextWrapping="Wrap" Text="{Binding price, Mode=TwoWay}" Width="69" TextAlignment="Center"/>
+        <Button x:Name="btnImage" Content="" HorizontalAlignment="Left" Margin="405,10,0,0" VerticalAlignment="Top" Width="85" Height="80" BorderThickness="0" MouseLeave="btnImage_MouseLeave" Click="btnImage_Click" MouseEnter="btnImage_MouseEnter">
+            <Button.Background>
+                <ImageBrush ImageSource="{Binding photo}" />
+            </Button.Background>
+        </Button>
+        <TextBox HorizontalAlignment="Left" Margin="331,40,0,40" TextWrapping="Wrap" Text="{Binding buy.storeName}" Width="69" TextAlignment="Center" IsEnabled="False"/>
+        <DatePicker HorizontalAlignment="Left" Margin="183,68,0,0" VerticalAlignment="Top" Width="217" IsEnabled="False" SelectedDate="{Binding buy.date}"/>
+
+    </Grid>
+</UserControl>

@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WindowsSystemsEngineeringProject"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="132" Width="550">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="220,156,0,0" VerticalAlignment="Top" Width="228" Height="111" Click="Button_Click"/>
-
+        <Button x:Name="btnAllApprovedBuys" Content="כל הקניוות המאושרות" Margin="0,10,148,0" VerticalAlignment="Top" Height="76" HorizontalAlignment="Right" Width="133" Click="btnAllApprovedBuys_Click"/>
+        <Button x:Name="btnApprove" Content="רשימת קניות לאישור" Margin="0,10,10,0" VerticalAlignment="Top" Height="76" Click="btnApprove_Click" HorizontalAlignment="Right" Width="133"/>
     </Grid>
 </Window>
