@@ -13,7 +13,7 @@
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-        Title="MainWindow" Height="671" Width="1405" FlowDirection="RightToLeft">
+        Title="MainWindow" Height="830" Width="1430" FlowDirection="RightToLeft">
 
 
     <Grid>
@@ -22,51 +22,111 @@
             materialDesign:ColorZoneAssist.Mode="PrimaryMid">
             <TabItem Header="{materialDesign:PackIcon Kind=home, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
                 <Grid x:Name="HomeGrid">
-                    <Button  x:Name="btnBuy" Click="btnBuy_Click"
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                        materialDesign:ButtonAssist.CornerRadius="25"
-                        Margin="0,10,10,0" Height="88" VerticalAlignment="Top" HorizontalAlignment="Right" Width="230">
-                        <TextBlock Text="חנות" Height="27" Width="184" FontSize="20" TextAlignment="Center" />
-                    </Button>
+
                     <Button  x:Name="btnRefresh"
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                        ToolTip="רענון" materialDesign:ButtonAssist.CornerRadius="25"
-                        Margin="0,10,245,0" Height="88" HorizontalAlignment="Right" Width="88" VerticalAlignment="Top" Click="btnRefresh_Click">
+                        ToolTip="רענון" materialDesign:ButtonAssist.CornerRadius="5"
+                        Margin="1210,10,0,0" Height="127" HorizontalAlignment="Left" Width="130" VerticalAlignment="Top" Click="btnRefresh_Click" Background="White" BorderBrush="White">
                         <materialDesign:PackIcon
-                        Kind="refresh" Width="30" Height="30" />
+                        Kind="refresh" Width="30" Height="30" Foreground="#FF1B0505" />
                     </Button>
 
+                    <materialDesign:Card
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                          Padding="32"
+                          Content="ערב טוב" Margin="10,10,0,0" FontSize="50" Height="127" VerticalAlignment="Top" HorizontalAlignment="Left" Width="500" />
+
+                    <materialDesign:Card
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                          Padding="32" Margin="530,10,0,0" FontSize="25" Height="127" VerticalAlignment="Top" HorizontalAlignment="Left" Width="666" >
+                        <Grid  Margin="-30,-30,-30,-30" >
+                            <Label Margin="41,41,0,37" Content="צור רשימת קניות לתאריך" FontSize="25" />
+                            <DatePicker x:Name="dtp"
+                                  materialDesign:HintAssist.Hint="Pick Date"
+                                  Style="{StaticResource MaterialDesignOutlinedDatePicker}" Margin="342,33,17,30" Height="60" SelectedDateChanged="DatePicker_SelectedDateChanged" />
+                        </Grid>
+                    </materialDesign:Card>
 
 
-                    <lvc:CartesianChart Series="{Binding MonthChart}" LegendLocation="Left" Margin="0,330,310,0" FlowDirection="RightToLeft" HorizontalAlignment="Right" Width="500" Height="300" VerticalAlignment="Top">
-                        <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Title="חודש" Labels="{Binding MonthChartLabels}"></lvc:Axis>
-                        </lvc:CartesianChart.AxisX>
-                        <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="מחיר\כמות מוצרים" LabelFormatter="{Binding Formatter}"></lvc:Axis>
-                        </lvc:CartesianChart.AxisY>
-                    </lvc:CartesianChart>
-                    <lvc:CartesianChart Series="{Binding WeekChart}" LegendLocation="Left" Margin="0,330,815,0" FlowDirection="RightToLeft" HorizontalAlignment="Right" Width="500" Height="300" VerticalAlignment="Top">
-                        <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Title="יום בשבוע" Labels="{Binding WeekChartLabels}"/>
-                        </lvc:CartesianChart.AxisX>
-                        <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="מחיר\כמות מוצרים" LabelFormatter="{Binding Formatter}"/>
-                        </lvc:CartesianChart.AxisY>
-                    </lvc:CartesianChart>
+                    <materialDesign:Card
+                        
+                    
+                      materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                      Padding="32" Margin="10,156,0,0" Height="300" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" >
+                        <lvc:PieChart x:Name="storePieChart" LegendLocation="Bottom"  Hoverable="False" DataTooltip="{x:Null}" Margin="0,0,-5,-4" FlowDirection="RightToLeft" HorizontalAlignment="Left" Width="236">
+                            <lvc:PieChart.Series>
+                                <lvc:PieSeries Title="Maria" Values="4" DataLabels="True"
+                               LabelPoint="{Binding PointLabel}"/>
+                                <lvc:PieSeries Title="Charles" Values="4" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}"/>
+                                <lvc:PieSeries Title="Frida" Values="6" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}"/>
+                                <lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}"/>
+                            </lvc:PieChart.Series>
+                        </lvc:PieChart>
+                    </materialDesign:Card>
 
-                    <lvc:PieChart x:Name="storePieChart" LegendLocation="Bottom"  Hoverable="False" DataTooltip="{x:Null}" Margin="0,330,10,0" FlowDirection="RightToLeft" HorizontalAlignment="Right" Width="300" Height="300" VerticalAlignment="Top">
-                        <lvc:PieChart.Series>
-                            <lvc:PieSeries Title="Maria" Values="4" DataLabels="True"
-                               LabelPoint="{Binding PointLabel}"/>
-                            <lvc:PieSeries Title="Charles" Values="4" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                            <lvc:PieSeries Title="Frida" Values="6" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                            <lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
-                        </lvc:PieChart.Series>
-                    </lvc:PieChart>
+                    <materialDesign:Card
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                          Padding="32" Margin="530,476,0,0" HorizontalAlignment="Left" Width="500" Height="300" VerticalAlignment="Top" >
+                        <lvc:CartesianChart Series="{Binding WeekChart}" LegendLocation="Left" Margin="5,5,5,5" FlowDirection="RightToLeft" Width="372">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="יום בשבוע" Labels="{Binding WeekChartLabels}"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="מחיר\כמות מוצרים" LabelFormatter="{Binding Formatter}"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </materialDesign:Card>
+
+                    <materialDesign:Card
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                          Padding="32" Margin="10,476,0,0" Height="300" VerticalAlignment="Top" HorizontalAlignment="Left" Width="500" >
+                        <lvc:CartesianChart Series="{Binding MonthChart}" LegendLocation="Left" Margin="5,5,5,5" FlowDirection="RightToLeft">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="חודש" Labels="{Binding MonthChartLabels}"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="מחיר\כמות מוצרים" LabelFormatter="{Binding Formatter}"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </materialDesign:Card>
+                    <materialDesign:Card
+                        materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                        Padding="32" Margin="332,156,0,0" Height="300" VerticalAlignment="Top" HorizontalAlignment="Left" Width="500" >
+                        <Grid Margin="-20,-20,-12,-24">
+                            <ComboBox x:Name="cmbProductTime" Height="38" Margin="40,25,40,217" SelectionChanged="cmbProductTime_SelectionChanged" FontSize="16"  />
+                            <lvc:CartesianChart Series="{Binding productTimeChart}" LegendLocation="Left" Margin="15,68,15,10" FlowDirection="RightToLeft">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="חודש" Labels="{Binding productTimeChartLabels}"/>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis Title="מחיר\כמות מוצרים" LabelFormatter="{Binding Formatter}"/>
+                                </lvc:CartesianChart.AxisY>
+                            </lvc:CartesianChart>
+
+                        </Grid>
+                    </materialDesign:Card>
+                    <materialDesign:Card
+                        materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                        Padding="32" Margin="1040,476,0,0" Height="300" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" />
+                    <materialDesign:Card
+                        materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                        Padding="32" Margin="840,156,0,0" Height="300" VerticalAlignment="Top" HorizontalAlignment="Left" Width="500" >
+                        <Grid Margin="-20,-20,-12,-24">
+                            <ComboBox x:Name="cmbStoreTime" Height="38" Margin="40,25,40,217"  FontSize="16" SelectionChanged="cmbStoreTime_SelectionChanged"  />
+                            <lvc:CartesianChart Series="{Binding storeTimeChart}" LegendLocation="Left" Margin="15,68,15,10" FlowDirection="RightToLeft">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="חודש" Labels="{Binding storeTimeChartLabels}"/>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis Title="מחיר\כמות מוצרים" LabelFormatter="{Binding Formatter}"/>
+                                </lvc:CartesianChart.AxisY>
+                            </lvc:CartesianChart>
+
+                        </Grid>
+                    </materialDesign:Card>
                 </Grid>
             </TabItem>
             <TabItem Header="{materialDesign:PackIcon Kind=History, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}" ContextMenuOpening="TabItem_ContextMenuOpening">
@@ -83,31 +143,19 @@
                     </ScrollViewer>
                 </Grid>
             </TabItem>
-
             <TabItem Header="{materialDesign:PackIcon Kind=Cart, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
                 <Grid x:Name="cartGrid">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="269*"/>
-                        <ColumnDefinition Width="323*"/>
-                    </Grid.ColumnDefinitions>
-                    <Border BorderThickness="3" Margin="10,76,415,10" Grid.RowSpan="3" BorderBrush="Black" CornerRadius="15" Grid.Column="1">
-                        <Image x:Name="imgQR" Margin="7" Grid.RowSpan="5" Stretch="Fill" Source="Pictures/qr-code.png"/>
+                    <Border BorderThickness="3" Margin="386,32,0,0" BorderBrush="Black" CornerRadius="15" HorizontalAlignment="Left" Width="341" Height="341" VerticalAlignment="Top">
+                        <Image x:Name="imgQR" Margin="7"  Stretch="Fill" Source="Pictures/qr-code.png"/>
                     </Border>
 
 
-                    <Label Content="חנות:" HorizontalAlignment="Left" Margin="46,54,0,0" VerticalAlignment="Top" Width="50" Height="34" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
+                    <Label Content="חנות:" HorizontalAlignment="Left" Margin="25,32,0,0" VerticalAlignment="Top" Width="50" Height="34" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
 
-                    <ComboBox x:Name="cmxStores" HorizontalAlignment="Left" Margin="190,54,0,0" VerticalAlignment="Top" Width="244" Height="34" FlowDirection="RightToLeft" IsTextSearchEnabled="True" IsEditable="True"/>
-                    <ComboBox x:Name="cmxProduct" HorizontalAlignment="Left" Margin="190,47,0,0" VerticalAlignment="Top" Width="244" Height="34" FlowDirection="RightToLeft" Grid.Row="1" IsTextSearchEnabled="True"  IsEditable="True" />
-                    <Button Content="החל" HorizontalAlignment="Left" Margin="46,31,0,0" VerticalAlignment="Top" Width="299" Height="87" Grid.Row="2"/>
-                    <Label Content="מוצר:" HorizontalAlignment="Left" Margin="46,47,0,0" VerticalAlignment="Top" Width="50" Height="34" VerticalContentAlignment="Center" FlowDirection="RightToLeft" Grid.Row="1"/>
+                    <ComboBox x:Name="cmxStores" HorizontalAlignment="Left" Margin="80,32,0,0" VerticalAlignment="Top" Width="244" Height="34" FlowDirection="RightToLeft" IsTextSearchEnabled="True" IsEditable="True" SelectionChanged="cmxStores_SelectionChanged"/>
+                    <ComboBox x:Name="cmxProduct" HorizontalAlignment="Left" Margin="80,101,0,0" VerticalAlignment="Top" Width="244" Height="34" FlowDirection="RightToLeft"  IsTextSearchEnabled="True"  IsEditable="True" KeyUp="cmxProduct_KeyUp" />
+                    <Button Content="החל" HorizontalAlignment="Left" Margin="30,285,0,0" VerticalAlignment="Top" Width="294" Height="88" Click="Button_Click" />
+                    <Label Content="מוצר:" HorizontalAlignment="Left" Margin="25,101,0,0" VerticalAlignment="Top" Width="50" Height="34" VerticalContentAlignment="Center" FlowDirection="RightToLeft" />
 
                 </Grid>
             </TabItem>

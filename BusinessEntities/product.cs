@@ -11,7 +11,7 @@ namespace BusinessEntities
     public class product
     {
         [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long productID { get; set; }
+        public int productID { get; set; }
         public string productName { get; set; }
         public string Photo { get; set; }
 
@@ -20,6 +20,11 @@ namespace BusinessEntities
             Photo = p.Photo;
             productID = p.productID;
             productName = p.productName;
+        }
+
+        public override string ToString()
+        {
+            return productName;
         }
     }
 }

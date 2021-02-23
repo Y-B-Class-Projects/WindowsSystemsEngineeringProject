@@ -5,7 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using DataLayer;
 using BusinessEntities;
-
+using Microsoft.ML;
+using Microsoft.ML.Trainers;
+using System.Diagnostics;
+using System.Collections;
+using Accord.MachineLearning.Rules;
 
 namespace BusinessLayer
 {
@@ -17,7 +21,29 @@ namespace BusinessLayer
             dal = new DAL();
         }
 
-        
+        public List<AssociationRule<int>> AI()
+        {
+            Trace.WriteLine("Starting AI:");
+
+            var allBuys = dal.getApprovedBuys().ToArray();
+
+            int[][] dataset = new int[allBuys.Count()][];
+
+            for (int i = 0; i < allBuys.Count(); i++)
+            {
+                dataset[i] = new int[] {(int)allBuys[i].date.DayOfWeek, (int)allBuys[i].productID};
+            }
+
+            Apriori apriori = new Apriori(threshold: 3, confidence: 0.4);
+
+            AssociationRuleMatcher<int> classifier = apriori.Learn(dataset);
+
+            AssociationRule<int>[] rules = classifier.Rules;
+ 
+            return rules.ToList();
+        }
+
+
 
         public product getProduct(long ID)
         {
@@ -29,6 +55,11 @@ namespace BusinessLayer
             var ret = dal.getApprovedBuys();
             ret.AddRange(dal.getUnapprovedBuys());
             return ret;
+        }
+
+        public IEnumerable getProducts()
+        {
+            return dal.getProducts();
         }
 
         public void updateProduct(product p)
@@ -115,6 +146,18 @@ namespace BusinessLayer
             return ret;
         }
 
+        public double[] getProductWeek(product product)
+        {
+            double[] ret = new double[7];
+
+            foreach (var buy in getApprovedBuys())
+            {
+                if(product.productID == buy.productID)
+                    ret[(int)buy.date.DayOfWeek - 1] += buy.amount;
+            }
+            return ret;
+        }
+
         public double[] getWeekProductsCount()
         {
             double[] ret = new double[7];
@@ -157,6 +200,18 @@ namespace BusinessLayer
                 ret.Add(new StoreCount() { storeName = storeNames[i], count = storesCount[i] });
             }
 
+            return ret;
+        }
+
+        public double[] getStoreWeek(string storeName)
+        {
+            double[] ret = new double[7];
+
+            foreach (var buy in getApprovedBuys())
+            {
+                if (storeName == buy.storeName)
+                    ret[(int)buy.date.DayOfWeek - 1] += buy.amount;
+            }
             return ret;
         }
     }

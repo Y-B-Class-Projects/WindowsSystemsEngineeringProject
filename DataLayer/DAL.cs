@@ -54,7 +54,16 @@ namespace DataLayer
             return credential1;
         }
 
-        
+        public System.Collections.IEnumerable getProducts()
+        {
+            List<product> products = new List<product>();
+            using (var ctx = new ProductsContext())
+            {
+                products = ctx.Products.ToList();
+            }
+            return products;
+        }
+
         public void addProduct(product p)
         {
             using (var ctx = new ProductsContext())
@@ -282,36 +291,39 @@ namespace DataLayer
             {
                 foreach (var row in GoogleData)
                 {
-                    long productID = long.Parse(row[2].ToString());
-                    product Product = getProduct(productID);
-
-                    if (Product == null) // the product dont exist in DB
+                    if (row.Count != 0)
                     {
-                        Product = new product() { Photo = null, productID = productID, productName = row[3].ToString() };
+                        int productID = (int)(long.Parse(row[2].ToString()) % 1000000000);
+                        product Product = getProduct(productID);
 
-                        string photoURL = "https://m.pricez.co.il/ProductPictures/200x/" + productID + ".jpg";
-                        string photoPath;
-
-                        try
+                        if (Product == null) // the product dont exist in DB
                         {
-                            using (WebClient client = new WebClient())
+                            Product = new product() { Photo = null, productID = productID, productName = row[3].ToString() };
+
+                            string photoURL = "https://m.pricez.co.il/ProductPictures/200x/" + row[2] + ".jpg";
+                            string photoPath;
+
+                            try
                             {
-                                photoPath = @"../../Pictures/" + Product.productName + ".jpg";
-                                client.DownloadFile(new Uri(photoURL), photoPath);
+                                using (WebClient client = new WebClient())
+                                {
+                                    photoPath = @"../../Pictures/" + Product.productName + ".jpg";
+                                    client.DownloadFile(new Uri(photoURL), photoPath);
+                                }
                             }
+                            catch (Exception)
+                            {
+                                photoPath = @"../../Pictures/noPhoto.png";
+                            }
+                            Product.Photo = photoPath;
+                            addProduct(Product);
                         }
-                        catch (Exception)
-                        {
-                            photoPath = @"../../Pictures/noPhoto.png";
-                        }
-                        Product.Photo = photoPath;
-                        addProduct(Product);
+                        buy b = new buy() { productID = productID, date = DateTime.Parse(row[0].ToString().Split(new string[] { "at" }, StringSplitOptions.None)[0]), amount = 1, price = float.Parse(row[4].ToString().Split('@')[1]), storeName = row[4].ToString().Split('@')[0], isApproved = false };
+                        buyList.Add(b);
+                        addUnapprovedBuy(b);
                     }
-                    buy b = new buy() { productID = productID, date = DateTime.Parse(row[0].ToString().Split(new string[] { "at" }, StringSplitOptions.None)[0]), amount = 1, price = float.Parse(row[4].ToString().Split('@')[1]), storeName = row[4].ToString().Split('@')[0] , isApproved = false};
-                    buyList.Add(b);
-                    addUnapprovedBuy(b);
                 }
-                cleanGoogleSheets();
+                //cleanGoogleSheets();
             }
         }
     }

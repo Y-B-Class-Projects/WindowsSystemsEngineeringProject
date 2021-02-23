@@ -1,4 +1,5 @@
-﻿using BusinessLayer;
+﻿using BusinessEntities;
+using BusinessLayer;
 using LiveCharts;
 using LiveCharts.Helpers;
 using LiveCharts.Wpf;
@@ -16,9 +17,13 @@ namespace WindowsSystemsEngineeringProject
 
         public SeriesCollection MonthChart { get; set; }
         public SeriesCollection WeekChart { get; set; }
+        public SeriesCollection productTimeChart { get; set; }
+        public SeriesCollection storeTimeChart { get; set; }
 
         public string[] MonthChartLabels { get; set; }
         public string[] WeekChartLabels { get; set; }
+        public string[] productTimeChartLabels { get; set; }
+        public string[] storeTimeChartLabels { get; set; }
 
         public Func<double, string> Formatter { get; set; }
 
@@ -61,8 +66,27 @@ namespace WindowsSystemsEngineeringProject
                 }
             };
 
-            WeekChartLabels = new[] {"ראשון" , "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"};
+            productTimeChart = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "כמות רכישות",
+                    Values = new ChartValues<double> { }
+                }
+            };
 
+            storeTimeChart = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "כמות רכישות",
+                    Values = new ChartValues<double> { }
+                }
+            };
+
+            WeekChartLabels = new[] {"ראשון" , "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"};
+            productTimeChartLabels = WeekChartLabels;
+            storeTimeChartLabels = WeekChartLabels;
 
             Formatter = value => value.ToString("N");
 
@@ -80,6 +104,12 @@ namespace WindowsSystemsEngineeringProject
         {
             var ret = string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
             return ret;
+        }
+
+
+        public void refreshProductTimeChart(product product)
+        {
+            productTimeChart[0].Values = bl.getProductWeek(product).AsChartValues();
         }
 
 
@@ -112,5 +142,9 @@ namespace WindowsSystemsEngineeringProject
             }
         }
 
+        internal void refreshStoreTimeChart(string storeName)
+        {
+            storeTimeChart[0].Values = bl.getStoreWeek(storeName).AsChartValues();
+        }
     }
 }
