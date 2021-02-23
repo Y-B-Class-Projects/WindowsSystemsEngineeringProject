@@ -55,14 +55,15 @@ namespace WindowsSystemsEngineeringProject
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            string imagePath = "";
             try
             {
-                string imagePath = @"C:\Users\Baruch Baksht\source\repos\WindowsSystemsEngineeringProject\DataLayer\QR_Codes\" + cmxStores.SelectedItem.ToString() + @"\" + cmxProduct.SelectedItem.ToString() + ".png";
+                imagePath = @"..\..\..\DataLayer\QR_Codes\" + cmxStores.SelectedItem.ToString() + @"\" + cmxProduct.SelectedItem.ToString() + ".png";
                 imgQR.Source = new BitmapImage(new Uri(imagePath));
             }
-            catch (Exception)
+            catch (Exception e1)
             {
-                MessageBox.Show("תקלה, נסה שוב");
+                MessageBox.Show(imagePath);
             }
         }
     }
