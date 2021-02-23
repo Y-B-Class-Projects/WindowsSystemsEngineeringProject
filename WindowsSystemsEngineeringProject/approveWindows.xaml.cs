@@ -23,11 +23,11 @@ namespace WindowsSystemsEngineeringProject
         private BL bl;
         public List<shoppingUserControl> shoppingUserControls;
 
-        public approveWindows()
+        public approveWindows(BL bl)
         {
             InitializeComponent();
 
-            bl = new BL();
+            this.bl = bl;
 
             shoppingUserControls = new List<shoppingUserControl>();
 
@@ -37,8 +37,6 @@ namespace WindowsSystemsEngineeringProject
 
         public void refresh()
         {
-            stk.Children.Clear();
-
             var buys = bl.getAndUpdateFromGoogleBuys();
             if (buys != null)
             {
@@ -46,12 +44,13 @@ namespace WindowsSystemsEngineeringProject
                 {
                     if (buy.isApproved == false)
                     {
-                        shoppingUserControl shoppingUserControl = new shoppingUserControl(buy, bl, this);
+                        shoppingUserControl shoppingUserControl = new shoppingUserControl(buy, bl, true, this);
                         stk.Children.Add(shoppingUserControl);
                         shoppingUserControls.Add(shoppingUserControl);
                     }
                 }
             }
         }
+
     }
 }

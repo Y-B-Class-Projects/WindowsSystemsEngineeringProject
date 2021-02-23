@@ -1,0 +1,35 @@
+﻿<Window x:Class="WindowsSystemsEngineeringProject.BuyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WindowsSystemsEngineeringProject"
+        mc:Ignorable="d"
+        Title="BuyWindow" Height="300" Width="595">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="269*"/>
+            <ColumnDefinition Width="323*"/>
+        </Grid.ColumnDefinitions>
+        <Border BorderThickness="3" Margin="10" Grid.RowSpan="5" BorderBrush="Black" CornerRadius="15">
+            <Image x:Name="imgQR" Margin="7" Grid.RowSpan="5" Stretch="Fill" Source="Pictures/qr-code.png"/>
+        </Border>
+
+
+        <Label Content="חנות:" HorizontalAlignment="Left" Margin="263,10,0,0" VerticalAlignment="Top" Width="50" Height="34" VerticalContentAlignment="Center" FlowDirection="RightToLeft" Grid.Column="1"/>
+
+        <ComboBox x:Name="cmxStores" HorizontalAlignment="Left" Margin="14,10,0,0" VerticalAlignment="Top" Width="244" Height="34" Grid.Column="1" FlowDirection="RightToLeft" IsTextSearchEnabled="True" IsEditable="True" SelectionChanged="cmxStores_SelectionChanged"/>
+        <ComboBox x:Name="cmxProduct" HorizontalAlignment="Left" Margin="14,10,0,0" VerticalAlignment="Top" Width="244" Height="34" FlowDirection="RightToLeft" Grid.Column="1" Grid.Row="1" IsTextSearchEnabled="True"  IsEditable="True" KeyUp="cmxProduct_KeyUp" />
+        <Button Content="החל" HorizontalAlignment="Left" Margin="14,10,0,0" VerticalAlignment="Top" Width="299" Height="87" Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" Click="Button_Click"/>
+        <Label Content="מוצר:" HorizontalAlignment="Left" Margin="263,10,0,0" VerticalAlignment="Top" Width="50" Height="34" VerticalContentAlignment="Center" FlowDirection="RightToLeft" Grid.Column="1" Grid.Row="1"/>
+
+    </Grid>
+</Window>

@@ -4,28 +4,49 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WindowsSystemsEngineeringProject"
-             mc:Ignorable="d" Height="100" Width="500">
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+            Background="{DynamicResource MaterialDesignPaper}"
+            TextElement.FontWeight="Medium"
+            TextElement.FontSize="14"
+            FontFamily="{materialDesign:MaterialDesignFont}"
+             mc:Ignorable="d" Height="155" Width="525">
     <Grid x:Name="UserContrilGrid">
-        <Button Content="" HorizontalAlignment="Left" Margin="92,20,0,0" VerticalAlignment="Top" Width="60" Height="60" BorderBrush="White" BorderThickness="0" >
-            <Button.Background>
-                <ImageBrush ImageSource="Pictures/X_mark.png"/>
-            </Button.Background>
-        </Button>
-        <Button x:Name="btnOK" Content="" HorizontalAlignment="Left" Margin="10,15,0,15" Width="70" BorderBrush="White" BorderThickness="0" Click="btnOK_Click" >
-            <Button.Background>
-                <ImageBrush ImageSource="Pictures/V_mark.png"/>
-            </Button.Background>
-        </Button>
-        <TextBox x:Name="txtAmout" HorizontalAlignment="Left" Margin="257,40,0,40" TextWrapping="Wrap" Text="{Binding amount, Mode=TwoWay}" Width="69" TextAlignment="Center"/>
-        <TextBox HorizontalAlignment="Left" Margin="183,15,0,65" TextWrapping="Wrap" Text="{Binding product.productName}" Width="217" TextAlignment="Center" IsEnabled="False"/>
-        <TextBox x:Name="txtPrice" HorizontalAlignment="Left" Margin="183,40,0,40" TextWrapping="Wrap" Text="{Binding price, Mode=TwoWay}" Width="69" TextAlignment="Center"/>
-        <Button x:Name="btnImage" Content="" HorizontalAlignment="Left" Margin="405,10,0,0" VerticalAlignment="Top" Width="85" Height="80" BorderThickness="0" MouseLeave="btnImage_MouseLeave" Click="btnImage_Click" MouseEnter="btnImage_MouseEnter">
+        <TextBlock
+            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+            Text ="{Binding product.productName}" Margin="0,10,144,0" FlowDirection="RightToLeft" Height="31" VerticalAlignment="Top" HorizontalAlignment="Right" Width="363" />
+
+        <TextBox materialDesign:HintAssist.Hint="חנות" Text="{Binding buy.storeName}"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+            VerticalAlignment="Top" Height="40" Margin="0,58,149,0" FlowDirection="RightToLeft" FontSize="16" HorizontalAlignment="Right" Width="100" IsEnabled="False" />
+
+        <TextBox x:Name="txbAmount" materialDesign:HintAssist.Hint="כמות" Text="{Binding amount, Mode=TwoWay}"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+            VerticalAlignment="Top" Height="40" Margin="0,58,254,0" FlowDirection="RightToLeft" FontSize="16" HorizontalAlignment="Right" Width="50" />
+
+        <TextBox x:Name="txbCost" materialDesign:HintAssist.Hint="מחיר" Text="{Binding price, Mode=TwoWay}"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+            VerticalAlignment="Top" Height="40" Margin="0,58,309,0" FlowDirection="RightToLeft" FontSize="16" HorizontalAlignment="Right" Width="50" />
+        <Button x:Name="btnImage" ToolTip="שנה תמונה" Content="" Margin="0,10,10,0" VerticalAlignment="Top" Height="129" BorderThickness="0" Click="btnImage_Click" HorizontalAlignment="Right" Width="129">
             <Button.Background>
                 <ImageBrush ImageSource="{Binding photo}" />
             </Button.Background>
         </Button>
-        <TextBox HorizontalAlignment="Left" Margin="331,40,0,40" TextWrapping="Wrap" Text="{Binding buy.storeName}" Width="69" TextAlignment="Center" IsEnabled="False"/>
-        <DatePicker HorizontalAlignment="Left" Margin="183,68,0,0" VerticalAlignment="Top" Width="217" IsEnabled="False" SelectedDate="{Binding buy.date}"/>
+        <DatePicker Margin="0,113,149,0" VerticalAlignment="Top" IsEnabled="False" SelectedDate="{Binding buy.date}" HorizontalAlignment="Right" Width="210"/>
 
+
+
+        <Button x:Name="btnDelete"
+            Style="{StaticResource MaterialDesignFloatingActionButton}"
+            ToolTip="מחק" Margin="0,69,370,0" Height="70" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Click="btnDelete_Click" >
+            <materialDesign:PackIcon
+            Kind="Delete" Width="30" Height="30" />
+        </Button>
+        <Button x:Name="btnOK"
+            Style="{StaticResource MaterialDesignFloatingActionButton}"
+            ToolTip="אשר" Margin="0,69,445,0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="70" Width="70" Click="btnOK_Click">
+            <materialDesign:PackIcon
+            Kind="Check" Height="30" Width="30" />
+        </Button>
     </Grid>
 </UserControl>

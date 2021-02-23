@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WindowsSystemsEngineeringProject"
         mc:Ignorable="d"
-        Title="AllApprovedWindows" Height="450" Width="800">
+        Title="AllApprovedWindows" Height="550" Width="420">
     <Grid>
-        
+        <ScrollViewer Margin="10">
+            <StackPanel x:Name="stk"/>
+        </ScrollViewer>
     </Grid>
 </Window>

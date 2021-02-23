@@ -84,6 +84,11 @@ namespace WindowsSystemsEngineeringProject
             }
         }
 
+        internal void deleteBuy()
+        {
+            bl.deleteBuy(buy);
+        }
+
         public void setImage(byte[] data)
         {
             var source = new BitmapImage();

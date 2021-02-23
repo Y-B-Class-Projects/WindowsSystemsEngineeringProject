@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,36 @@ namespace WindowsSystemsEngineeringProject
     /// </summary>
     public partial class AllApprovedWindows : Window
     {
-        public AllApprovedWindows()
+        private BL bl;
+        public List<shoppingUserControl> shoppingUserControls;
+
+        public AllApprovedWindows(BL bl)
         {
             InitializeComponent();
+
+            this.bl = bl;
+
+            shoppingUserControls = new List<shoppingUserControl>();
+
+            refresh();
+        }
+
+
+        public void refresh()
+        {
+            var buys = bl.getBuys();
+            if (buys != null)
+            {
+                foreach (var buy in buys)
+                {
+                    if (buy.isApproved == true)
+                    {
+                        shoppingUserControl shoppingUserControl = new shoppingUserControl(buy, bl,false);
+                        stk.Children.Add(shoppingUserControl);
+                        shoppingUserControls.Add(shoppingUserControl);
+                    }
+                }
+            }
         }
     }
 }

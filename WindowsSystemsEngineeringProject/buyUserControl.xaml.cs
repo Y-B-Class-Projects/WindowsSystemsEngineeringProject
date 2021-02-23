@@ -29,7 +29,7 @@ namespace WindowsSystemsEngineeringProject
         approveWindows approveWindows;
         BL bl;
 
-        public shoppingUserControl(buy buy, BL bl, approveWindows approveWindows)
+        public shoppingUserControl(buy buy, BL bl, bool isApproveWindows, approveWindows approveWindows = null)
         {
             InitializeComponent();
 
@@ -40,7 +40,23 @@ namespace WindowsSystemsEngineeringProject
             UserContrilGrid.DataContext = model;
 
             this.bl = bl;
+
+            if(isApproveWindows == false)
+            {
+                btnOK.Visibility = Visibility.Hidden;
+                btnDelete.Visibility = Visibility.Hidden;
+                this.Width = 365;
+                txbAmount.IsEnabled = false;
+                txbCost.IsEnabled = false;
+            }
         }  
+
+
+        private void btnImage_Click(object sender, RoutedEventArgs e)
+        {
+            model.browsePhoto();
+            model.refreshPhotoData(approveWindows.shoppingUserControls);     
+        }
 
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
@@ -51,22 +67,11 @@ namespace WindowsSystemsEngineeringProject
         }
 
 
-        private void btnImage_Click(object sender, RoutedEventArgs e)
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            model.browsePhoto();
-            model.refreshPhotoData(approveWindows.shoppingUserControls);     
+            model.deleteBuy();
+            ((StackPanel)Parent).Children.Remove(this);
         }
 
-
-        private void btnImage_MouseEnter(object sender, MouseEventArgs e)
-        {
-            btnImage.Content = "בחר תמונה";
-        }
-
-
-        private void btnImage_MouseLeave(object sender, MouseEventArgs e)
-        {
-            btnImage.Content = "";
-        }
     }
 }

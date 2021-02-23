@@ -41,7 +41,7 @@ namespace DataLayer
             string[] newScopes = new string[] { "https://www.googleapis.com/auth/drive", "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/spreadsheets" };
             using (var stream = new FileStream(@"..\..\..\DataLayer\credentials.json", FileMode.Open, FileAccess.Read))
             {
-                const string credPath = "token3.json";
+                const string credPath = "token.json";
                 credential1 = GoogleWebAuthorizationBroker
                     .AuthorizeAsync(
                         GoogleClientSecrets.Load(stream).Secrets,
@@ -54,6 +54,7 @@ namespace DataLayer
             return credential1;
         }
 
+        
         public void addProduct(product p)
         {
             using (var ctx = new ProductsContext())
@@ -108,6 +109,18 @@ namespace DataLayer
         }
 
 
+        public void deleteBuy(buy buy)
+        {
+            buy buyToDelete;
+            using (var ctx = new BuyContext())
+            {
+                buyToDelete = ctx.Buys.FirstOrDefault(b => b.productID == buy.productID && b.date == buy.date && b.storeName == buy.storeName);
+                ctx.Buys.Remove(buyToDelete);
+                ctx.SaveChanges();
+            }
+        }
+
+
         public void addBuy(buy newBuy)
         {
             try
@@ -139,6 +152,33 @@ namespace DataLayer
 
                 ctx.SaveChanges();
             }
+        }
+
+        public List<string> getStoresNames()
+        {
+            string[] dirs = Directory.GetDirectories(@"..\..\..\DataLayer\QR_Codes");
+
+            List<string> ret = new List<string>();
+
+            foreach (var item in dirs)
+            {
+                ret.Add(Path.GetFileName(item));
+            }
+            return ret;
+        }
+
+
+        public List<string> getProductsToBuyNames(string storeName)
+        {
+            DirectoryInfo d = new DirectoryInfo(@"..\..\..\DataLayer\QR_Codes\" + storeName);//Assuming Test is your Folder
+            FileInfo[] Files = d.GetFiles("*.png"); //Getting Text files
+            List<string> ret = new List<string>();
+            foreach (FileInfo file in Files)
+            {
+                ret.Add(file.Name.Split('.')[0]);
+            }
+            
+            return ret;
         }
 
 
