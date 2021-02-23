@@ -19,9 +19,10 @@ namespace BusinessEntities
         [Key, Column(Order = 2)]
         public string storeName { get; set; }
 
+        public bool isApproved { get; set; }
+
         public int amount { get; set; }
         public float price { get; set; }
-        public bool isApproved { get; set; }
 
         public void DeepCopy(buy buy)
         {

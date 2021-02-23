@@ -37,19 +37,19 @@ namespace WindowsSystemsEngineeringProject
 
         public void refresh()
         {
-            var buys = bl.getAndUpdateFromGoogleBuys();
-            if (buys != null)
-            {
-                foreach (var buy in buys)
-                {
-                    if (buy.isApproved == false)
-                    {
-                        shoppingUserControl shoppingUserControl = new shoppingUserControl(buy, bl, true, this);
-                        stk.Children.Add(shoppingUserControl);
-                        shoppingUserControls.Add(shoppingUserControl);
-                    }
-                }
-            }
+            //var buys = bl.getAndUpdateFromGoogleBuys();
+            //if (buys != null)
+            //{
+            //    foreach (var buy in buys)
+            //    {
+            //        if (buy.isApproved == false)
+            //        {
+            //            shoppingUserControl shoppingUserControl = new shoppingUserControl(buy, bl, true, this);
+            //            stk.Children.Add(shoppingUserControl);
+            //            shoppingUserControls.Add(shoppingUserControl);
+            //        }
+            //    }
+            //}
         }
 
     }

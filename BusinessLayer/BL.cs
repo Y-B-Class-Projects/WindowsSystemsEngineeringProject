@@ -26,7 +26,9 @@ namespace BusinessLayer
 
         public List<buy> getGoogleData()
         {
-            return dal.getBuys();
+            var ret = dal.getApprovedBuys();
+            ret.AddRange(dal.getUnapprovedBuys());
+            return ret;
         }
 
         public void updateProduct(product p)
@@ -37,17 +39,31 @@ namespace BusinessLayer
         public List<buy> getAndUpdateFromGoogleBuys()
         {
             dal.updateFromGoogle();
-            return dal.getBuys();
+            return getGoogleData();
         }
 
-        public void updateBuy(buy b)
+        public void updateUnappruvedBuy(buy b)
         {
-            dal.updateBuy(b);
+            dal.updateUnappruvedBuy(b);
         }
+
+        public void updateAppruvedBuy(buy b)
+        {
+            dal.updateAppruvedBuy(b);
+        }
+
+
+        public void appruveBuy(buy buy)
+        {
+            dal.deleteUnapprovedBuy(buy);
+            dal.addApprovedBuy(buy);
+        }
+
+
 
         public List<buy> getBuys()
         {
-            return dal.getBuys();
+            return getGoogleData();
         }
 
         public List<string> getStoresNames()
@@ -57,7 +73,7 @@ namespace BusinessLayer
 
         public void deleteBuy(buy buy)
         {
-            dal.deleteBuy(buy);
+            dal.deleteUnapprovedBuy(buy);
         }
 
         public List<string> getProductsToBuyNames(string storeName)
@@ -112,17 +128,13 @@ namespace BusinessLayer
 
         public List<buy> getApprovedBuys()
         {
-            return (from buy in dal.getBuys()
-                    where buy.isApproved == true
-                    select buy).ToList();                   
+            return dal.getApprovedBuys();                  
         }
 
 
         public List<buy> getUnapprovedBuys()
         {
-            return (from buy in dal.getBuys()
-                    where buy.isApproved == false
-                    select buy).ToList();
+            return dal.getUnapprovedBuys();
         }
 
 
@@ -135,7 +147,7 @@ namespace BusinessLayer
             int[] storesCount = new int[storeNames.Count()];
 
 
-            foreach (var buy in dal.getBuys())
+            foreach (var buy in getBuys())
             {
                 storesCount[storeNames.IndexOf(buy.storeName)] += buy.amount;
             }

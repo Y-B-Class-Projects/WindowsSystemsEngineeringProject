@@ -22,28 +22,16 @@
             materialDesign:ColorZoneAssist.Mode="PrimaryMid">
             <TabItem Header="{materialDesign:PackIcon Kind=home, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
                 <Grid x:Name="HomeGrid">
-                    <Button x:Name="btnAllApprovedBuys" Click="btnAllApprovedBuys_Click"
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                        materialDesign:ButtonAssist.CornerRadius="25"
-                        Margin="0,50,647,0" Height="88" VerticalAlignment="Top" HorizontalAlignment="Right" Width="230">
-                        <TextBlock Text="היסטורית קניות" Height="27" Width="184" FontSize="20" TextAlignment="Center" />
-                    </Button>
-                    <Button x:Name="btnApprove" Click="btnApprove_Click"
-                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                        materialDesign:ButtonAssist.CornerRadius="25"
-                        Margin="0,144,944,0" Height="88" VerticalAlignment="Top" HorizontalAlignment="Right" Width="230">
-                        <TextBlock Text="רשימת קניות לאישור" Height="27" Width="184" FontSize="20" TextAlignment="Center" />
-                    </Button>
                     <Button  x:Name="btnBuy" Click="btnBuy_Click"
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                         materialDesign:ButtonAssist.CornerRadius="25"
-                        Margin="0,237,944,0" Height="88" VerticalAlignment="Top" HorizontalAlignment="Right" Width="230">
+                        Margin="0,10,10,0" Height="88" VerticalAlignment="Top" HorizontalAlignment="Right" Width="230">
                         <TextBlock Text="חנות" Height="27" Width="184" FontSize="20" TextAlignment="Center" />
                     </Button>
                     <Button  x:Name="btnRefresh"
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                         ToolTip="רענון" materialDesign:ButtonAssist.CornerRadius="25"
-                        Margin="0,10,992,0" Height="88" HorizontalAlignment="Right" Width="88" VerticalAlignment="Top" Click="btnRefresh_Click">
+                        Margin="0,10,245,0" Height="88" HorizontalAlignment="Right" Width="88" VerticalAlignment="Top" Click="btnRefresh_Click">
                         <materialDesign:PackIcon
                         Kind="refresh" Width="30" Height="30" />
                     </Button>
@@ -83,16 +71,48 @@
             </TabItem>
             <TabItem Header="{materialDesign:PackIcon Kind=History, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}" ContextMenuOpening="TabItem_ContextMenuOpening">
                 <Grid x:Name="HistoryGrid">
-                    
+                    <ScrollViewer Margin="10">
+                        <StackPanel x:Name="HistoryStk" Loaded="HistoryStk_Loaded"/>
+                    </ScrollViewer>
                 </Grid>
             </TabItem>
             <TabItem Header="{materialDesign:PackIcon Kind=ClipboardCheckOutline, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
                 <Grid x:Name="checklistGrid">
-                    
+                    <ScrollViewer Margin="10">
+                        <StackPanel x:Name="checklistStk" Loaded="checklistStk_Loaded"/>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="{materialDesign:PackIcon Kind=Cart, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                <Grid x:Name="cartGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="269*"/>
+                        <ColumnDefinition Width="323*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border BorderThickness="3" Margin="10,76,415,10" Grid.RowSpan="3" BorderBrush="Black" CornerRadius="15" Grid.Column="1">
+                        <Image x:Name="imgQR" Margin="7" Grid.RowSpan="5" Stretch="Fill" Source="Pictures/qr-code.png"/>
+                    </Border>
+
+
+                    <Label Content="חנות:" HorizontalAlignment="Left" Margin="46,54,0,0" VerticalAlignment="Top" Width="50" Height="34" VerticalContentAlignment="Center" FlowDirection="RightToLeft"/>
+
+                    <ComboBox x:Name="cmxStores" HorizontalAlignment="Left" Margin="190,54,0,0" VerticalAlignment="Top" Width="244" Height="34" FlowDirection="RightToLeft" IsTextSearchEnabled="True" IsEditable="True"/>
+                    <ComboBox x:Name="cmxProduct" HorizontalAlignment="Left" Margin="190,47,0,0" VerticalAlignment="Top" Width="244" Height="34" FlowDirection="RightToLeft" Grid.Row="1" IsTextSearchEnabled="True"  IsEditable="True" />
+                    <Button Content="החל" HorizontalAlignment="Left" Margin="46,31,0,0" VerticalAlignment="Top" Width="299" Height="87" Grid.Row="2"/>
+                    <Label Content="מוצר:" HorizontalAlignment="Left" Margin="46,47,0,0" VerticalAlignment="Top" Width="50" Height="34" VerticalContentAlignment="Center" FlowDirection="RightToLeft" Grid.Row="1"/>
+
                 </Grid>
             </TabItem>
 
         </TabControl>
-        
+
     </Grid>
 </Window>

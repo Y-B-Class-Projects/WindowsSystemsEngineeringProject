@@ -10,41 +10,41 @@
             TextElement.FontWeight="Medium"
             TextElement.FontSize="14"
             FontFamily="{materialDesign:MaterialDesignFont}"
-             mc:Ignorable="d" Height="155" Width="525">
+             mc:Ignorable="d" Height="155" Width="525" FlowDirection="RightToLeft">
     <Grid x:Name="UserContrilGrid">
         <TextBlock
             Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-            Text ="{Binding product.productName}" Margin="0,10,144,0" FlowDirection="RightToLeft" Height="31" VerticalAlignment="Top" HorizontalAlignment="Right" Width="363" />
+            Text ="{Binding product.productName}" Margin="144,10,0,0" FlowDirection="RightToLeft" Height="31" VerticalAlignment="Top" HorizontalAlignment="Left" Width="363" />
 
         <TextBox materialDesign:HintAssist.Hint="חנות" Text="{Binding buy.storeName}"
             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-            VerticalAlignment="Top" Height="40" Margin="0,58,149,0" FlowDirection="RightToLeft" FontSize="16" HorizontalAlignment="Right" Width="100" IsEnabled="False" />
+            VerticalAlignment="Top" Height="40" Margin="144,66,0,0" FlowDirection="RightToLeft" FontSize="16" IsEnabled="False" RenderTransformOrigin="0.347,1.017" HorizontalAlignment="Left" Width="100" />
 
         <TextBox x:Name="txbAmount" materialDesign:HintAssist.Hint="כמות" Text="{Binding amount, Mode=TwoWay}"
             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-            VerticalAlignment="Top" Height="40" Margin="0,58,254,0" FlowDirection="RightToLeft" FontSize="16" HorizontalAlignment="Right" Width="50" />
+            VerticalAlignment="Top" Height="40" Margin="249,66,0,0" FlowDirection="RightToLeft" FontSize="16" HorizontalAlignment="Left" Width="50" />
 
         <TextBox x:Name="txbCost" materialDesign:HintAssist.Hint="מחיר" Text="{Binding price, Mode=TwoWay}"
             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-            VerticalAlignment="Top" Height="40" Margin="0,58,309,0" FlowDirection="RightToLeft" FontSize="16" HorizontalAlignment="Right" Width="50" />
-        <Button x:Name="btnImage" ToolTip="שנה תמונה" Content="" Margin="0,10,10,0" VerticalAlignment="Top" Height="129" BorderThickness="0" Click="btnImage_Click" HorizontalAlignment="Right" Width="129">
+            VerticalAlignment="Top" Height="40" Margin="304,66,0,0" FlowDirection="RightToLeft" FontSize="16" HorizontalAlignment="Left" Width="50" />
+        <Button x:Name="btnImage" ToolTip="שנה תמונה" Content="" Margin="10,10,0,0" VerticalAlignment="Top" Height="129" BorderThickness="0" Click="btnImage_Click" HorizontalAlignment="Left" Width="129">
             <Button.Background>
                 <ImageBrush ImageSource="{Binding photo}" />
             </Button.Background>
         </Button>
-        <DatePicker Margin="0,113,149,0" VerticalAlignment="Top" IsEnabled="False" SelectedDate="{Binding buy.date}" HorizontalAlignment="Right" Width="210"/>
+        <DatePicker Margin="144,113,0,0" VerticalAlignment="Top" IsEnabled="False" SelectedDate="{Binding buy.date}" HorizontalAlignment="Left" Width="210"/>
 
 
 
         <Button x:Name="btnDelete"
             Style="{StaticResource MaterialDesignFloatingActionButton}"
-            ToolTip="מחק" Margin="0,69,370,0" Height="70" Width="70" VerticalAlignment="Top" HorizontalAlignment="Right" Click="btnDelete_Click" >
+            ToolTip="מחק" Margin="370,75,0,0" Height="70" Width="70" VerticalAlignment="Top" Click="btnDelete_Click" HorizontalAlignment="Left" >
             <materialDesign:PackIcon
             Kind="Delete" Width="30" Height="30" />
         </Button>
         <Button x:Name="btnOK"
             Style="{StaticResource MaterialDesignFloatingActionButton}"
-            ToolTip="אשר" Margin="0,69,445,0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="70" Width="70" Click="btnOK_Click">
+            ToolTip="אשר" Margin="445,75,0,0" VerticalAlignment="Top" Height="70" Width="70" Click="btnOK_Click" HorizontalAlignment="Left">
             <materialDesign:PackIcon
             Kind="Check" Height="30" Width="30" />
         </Button>

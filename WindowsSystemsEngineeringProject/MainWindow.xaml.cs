@@ -70,5 +70,55 @@ namespace WindowsSystemsEngineeringProject
         {
             MessageBox.Show("היי");
         }
+
+        private void HistoryStk_Loaded(object sender, RoutedEventArgs e)
+        {
+            refreshHistoryStk();
+        }
+
+        private void refreshHistoryStk()
+        {
+            shoppingUserControls = new List<shoppingUserControl>();
+            var buys = bl.getBuys();
+            HistoryStk.Children.Clear();
+
+            if (buys != null)
+            {
+                foreach (var buy in buys)
+                {
+                    if (buy.isApproved == true)
+                    {
+                        shoppingUserControl shoppingUserControl = new shoppingUserControl(buy, bl, false, this);
+                        HistoryStk.Children.Add(shoppingUserControl);
+                        shoppingUserControls.Add(shoppingUserControl);
+                    }
+                }
+            }
+        }
+
+        private void checklistStk_Loaded(object sender, RoutedEventArgs e)
+        {
+            refreshchecklistStk();
+        }
+
+        private void refreshchecklistStk()
+        {
+            shoppingUserControls = new List<shoppingUserControl>();
+            var buys = bl.getAndUpdateFromGoogleBuys();
+            checklistStk.Children.Clear();
+
+            if (buys != null)
+            {
+                foreach (var buy in buys)
+                {
+                    if (buy.isApproved == false)
+                    {
+                        shoppingUserControl shoppingUserControl = new shoppingUserControl(buy, bl, true, this);
+                        checklistStk.Children.Add(shoppingUserControl);
+                        shoppingUserControls.Add(shoppingUserControl);
+                    }
+                }
+            }
+        }
     }
 }
