@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace DataLayer
 {
-    public class BuyContext : DbContext
+    public class approvedBuysContext : DbContext
     {
-        public BuyContext() : base("BuysDB")
+        public approvedBuysContext() : base("approvedBuysContextDb")
         {
 
         }

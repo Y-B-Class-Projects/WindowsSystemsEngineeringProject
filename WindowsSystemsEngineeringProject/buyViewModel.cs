@@ -145,7 +145,7 @@ namespace WindowsSystemsEngineeringProject
         public void approveBuy()
         {
             buy.isApproved = true;
-            bl.updateBuy(buy);
+            bl.appruveBuy(buy);
         }
 
         public void OnPropertyChanged([CallerMemberName] string name = null)

@@ -88,20 +88,32 @@ namespace DataLayer
         }
 
 
-        public List<buy> getBuys()
+        public List<buy> getUnapprovedBuys()
         {
             List<buy> Buys = new List<buy>();
-            using (var ctx = new BuyContext())
+            using (var ctx = new unapprovedBuysContext())
             {
                 Buys = ctx.Buys.ToList();
             }
             return Buys;
         }
 
-        public buy getBuy(long productID, DateTime date, string storeName)
+
+        public List<buy> getApprovedBuys()
+        {
+            List<buy> Buys = new List<buy>();
+            using (var ctx = new approvedBuysContext())
+            {
+                Buys = ctx.Buys.ToList();
+            }
+            return Buys;
+        }
+
+
+        public buy getUnapprovedBuy(long productID, DateTime date, string storeName)
         {
             buy buy;
-            using (var ctx = new BuyContext())
+            using (var ctx = new unapprovedBuysContext())
             {
                 buy = ctx.Buys.FirstOrDefault(b => b.productID == productID && b.date == date && b.storeName == storeName);
             }
@@ -109,10 +121,21 @@ namespace DataLayer
         }
 
 
-        public void deleteBuy(buy buy)
+        public buy getApprovedBuy(long productID, DateTime date, string storeName)
+        {
+            buy buy;
+            using (var ctx = new approvedBuysContext())
+            {
+                buy = ctx.Buys.FirstOrDefault(b => b.productID == productID && b.date == date && b.storeName == storeName);
+            }
+            return buy;
+        }
+
+
+        public void deleteUnapprovedBuy(buy buy)
         {
             buy buyToDelete;
-            using (var ctx = new BuyContext())
+            using (var ctx = new unapprovedBuysContext())
             {
                 buyToDelete = ctx.Buys.FirstOrDefault(b => b.productID == buy.productID && b.date == buy.date && b.storeName == buy.storeName);
                 ctx.Buys.Remove(buyToDelete);
@@ -121,11 +144,11 @@ namespace DataLayer
         }
 
 
-        public void addBuy(buy newBuy)
+        public void addUnapprovedBuy(buy newBuy)
         {
             try
             {
-                using (var ctx = new BuyContext())
+                using (var ctx = new unapprovedBuysContext())
                 {
                     ctx.Buys.Add(newBuy);
                     ctx.SaveChanges();
@@ -133,26 +156,59 @@ namespace DataLayer
             }
             catch (Exception e)
             {
-                buy buy = getBuy(newBuy.productID, newBuy.date, newBuy.storeName);
+                buy buy = getUnapprovedBuy(newBuy.productID, newBuy.date, newBuy.storeName);
                 float pricePerOne = buy.price / buy.amount;
                 buy.amount += 1;
                 buy.price += pricePerOne;
-                updateBuy(buy);
+                updateUnappruvedBuy(buy);
             }
         }
 
 
-        public void updateBuy(buy newBuy)
+        public void addApprovedBuy(buy newBuy)
+        {
+            try
+            {
+                using (var ctx = new approvedBuysContext())
+                {
+                    ctx.Buys.Add(newBuy);
+                    ctx.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                buy buy = getApprovedBuy(newBuy.productID, newBuy.date, newBuy.storeName);
+                float pricePerOne = buy.price / buy.amount;
+                buy.amount += newBuy.amount;
+                buy.price += pricePerOne;
+                updateAppruvedBuy(buy);
+            }
+        }
+
+
+        public void updateUnappruvedBuy(buy newBuy)
         {
             buy buy;
-            using (var ctx = new BuyContext())
+            using (var ctx = new unapprovedBuysContext())
             {
                 buy = ctx.Buys.FirstOrDefault(b => b.productID == newBuy.productID && b.date == newBuy.date && b.storeName == newBuy.storeName);
                 buy.DeepCopy(newBuy);
-
                 ctx.SaveChanges();
             }
         }
+
+
+        public void updateAppruvedBuy(buy newBuy)
+        {
+            buy buy;
+            using (var ctx = new approvedBuysContext())
+            {
+                buy = ctx.Buys.FirstOrDefault(b => b.productID == newBuy.productID && b.date == newBuy.date && b.storeName == newBuy.storeName);
+                buy.DeepCopy(newBuy);
+                ctx.SaveChanges();
+            }
+        }
+
 
         public List<string> getStoresNames()
         {
@@ -253,7 +309,7 @@ namespace DataLayer
                     }
                     buy b = new buy() { productID = productID, date = DateTime.Parse(row[0].ToString().Split(new string[] { "at" }, StringSplitOptions.None)[0]), amount = 1, price = float.Parse(row[4].ToString().Split('@')[1]), storeName = row[4].ToString().Split('@')[0] , isApproved = false};
                     buyList.Add(b);
-                    addBuy(b);
+                    addUnapprovedBuy(b);
                 }
                 cleanGoogleSheets();
             }

@@ -26,10 +26,10 @@ namespace WindowsSystemsEngineeringProject
     public partial class shoppingUserControl : UserControl
     {
         buyViewModel model;
-        approveWindows approveWindows;
+        MainWindow approveWindows;
         BL bl;
 
-        public shoppingUserControl(buy buy, BL bl, bool isApproveWindows, approveWindows approveWindows = null)
+        public shoppingUserControl(buy buy, BL bl, bool isApproveWindows, MainWindow approveWindows)
         {
             InitializeComponent();
 

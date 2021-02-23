@@ -1,6 +1,7 @@
 ﻿using BusinessLayer;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,7 +45,7 @@ namespace WindowsSystemsEngineeringProject
                                          where item.ToString().Contains(input)
                                          select item;
             else
-                cmxProduct.ItemsSource = productsNames;
+                cmxProduct.ItemsSource = null;
         }
 
         private void cmxStores_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -57,10 +58,16 @@ namespace WindowsSystemsEngineeringProject
         {
             try
             {
-                string imagePath = @"C:\Users\Baruch Baksht\source\repos\WindowsSystemsEngineeringProject\DataLayer\QR_Codes\" + cmxStores.SelectedItem.ToString() + @"\" + cmxProduct.SelectedItem.ToString() + ".png";
-                imgQR.Source = new BitmapImage(new Uri(imagePath));
+                string imagePath = @"..\..\..\DataLayer\QR_Codes\" + cmxStores.SelectedItem.ToString() + @"\" + cmxProduct.SelectedItem.ToString() + ".png";
+
+                var source = new BitmapImage();
+                source.BeginInit();
+                source.StreamSource = new MemoryStream(File.ReadAllBytes(imagePath));
+                source.EndInit();
+
+                imgQR.Source = source;
             }
-            catch (Exception)
+            catch (Exception e1)
             {
                 MessageBox.Show("תקלה, נסה שוב");
             }
