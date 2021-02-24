@@ -13,7 +13,7 @@
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-        Title="MainWindow" Height="830" Width="1435" FlowDirection="RightToLeft">
+        Title="מערכת חכמה לניהול קניות" Height="830" Width="1435" FlowDirection="RightToLeft">
 
 
     <Grid>

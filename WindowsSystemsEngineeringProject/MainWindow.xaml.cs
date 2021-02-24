@@ -182,13 +182,13 @@ namespace WindowsSystemsEngineeringProject
                     {
                         buyList += bl.getProduct(rule.Y.First()).productName += "\n";
                     }
-                    else
-                    {
-                        if (rule.Y.First() == day)
-                        {
-                            buyList += bl.getProduct(rule.X.First()).productName += "\n";
-                        }
-                    }
+                    //else
+                    //{
+                    //    if (rule.Y.First() == day)
+                    //    {
+                    //        buyList += bl.getProduct(rule.X.First()).productName += "\n";
+                    //    }
+                    //}
                 }
 
                 // Must have write permissions to the path folder

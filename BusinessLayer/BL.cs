@@ -34,7 +34,7 @@ namespace BusinessLayer
                 dataset[i] = new int[] {(int)allBuys[i].date.DayOfWeek, (int)allBuys[i].productID};
             }
 
-            Apriori apriori = new Apriori(threshold: 3, confidence: 0.4);
+            Apriori apriori = new Apriori(threshold: 3, confidence: 0.2);
 
             AssociationRuleMatcher<int> classifier = apriori.Learn(dataset);
 
@@ -141,7 +141,7 @@ namespace BusinessLayer
 
             foreach (var buy in getApprovedBuys())
             {
-                ret[(int)buy.date.DayOfWeek - 1] += buy.price;
+                ret[(int)buy.date.DayOfWeek] += buy.price;
             }
             return ret;
         }
@@ -153,7 +153,7 @@ namespace BusinessLayer
             foreach (var buy in getApprovedBuys())
             {
                 if(product.productID == buy.productID)
-                    ret[(int)buy.date.DayOfWeek - 1] += buy.amount;
+                    ret[(int)buy.date.DayOfWeek] += buy.amount;
             }
             return ret;
         }
@@ -164,7 +164,7 @@ namespace BusinessLayer
 
             foreach (var buy in getApprovedBuys())
             {
-                ret[(int)buy.date.DayOfWeek - 1] += buy.amount;
+                ret[(int)buy.date.DayOfWeek] += buy.amount;
             }
             return ret;
         }

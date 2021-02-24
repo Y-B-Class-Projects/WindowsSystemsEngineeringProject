@@ -323,7 +323,7 @@ namespace DataLayer
                         addUnapprovedBuy(b);
                     }
                 }
-                //cleanGoogleSheets();
+                cleanGoogleSheets();
             }
         }
     }
