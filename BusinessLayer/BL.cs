@@ -214,5 +214,36 @@ namespace BusinessLayer
             }
             return ret;
         }
+
+        public int[,] getCommonProducts()
+        {
+            int[,] ret = new int[5,2];
+
+            var buys = dal.getApprovedBuys();
+
+            if(buys.Count() > 5)
+            {
+                int[] count = new int[buys.Count];
+                int[] products = new int[buys.Count]; ;
+
+                for (int i = 0; i < buys.Count(); i++)
+                {
+                    count[i] = buys[i].productID;
+                    products[i] = buys.Select(buy => buy.productID == buys[i].productID).Count(); ;
+                }
+
+                Array.Sort(count, products);
+
+                for (int i = 0; i < 5; i++)
+                {
+                    ret[i, 0] = products[i];
+                    ret[i, 1] = count[i];
+                }
+
+                return ret;
+            }
+
+            return null;
+        }
     }
 }

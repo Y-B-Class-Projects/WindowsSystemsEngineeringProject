@@ -43,13 +43,16 @@ namespace WindowsSystemsEngineeringProject
 
             shoppingUserControls = new List<shoppingUserControl>();
 
-            model = new mainWindowsViewModel(bl, storePieChart);
+            model = new mainWindowsViewModel(bl, storePieChart, productPieChart);
 
             cmbProductTime.ItemsSource = bl.getProducts();
 
             cmbStoreTime.ItemsSource = bl.getStoresNames();
 
             DataContext = model;
+
+
+
         }
 
 
@@ -58,14 +61,6 @@ namespace WindowsSystemsEngineeringProject
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             model.refreshAll();
-
-            string ret = "";
-
-            foreach (var item in AI)
-            {
-                ret += item.Y.First() + "->" + bl.getProduct(item.X.First()) + "\n";
-            }
-            MessageBox.Show(ret);
         }
 
         private void TabItem_ContextMenuOpening(object sender, ContextMenuEventArgs e)
@@ -75,20 +70,20 @@ namespace WindowsSystemsEngineeringProject
 
         private void HistoryStk_Loaded(object sender, RoutedEventArgs e)
         {
-            refreshHistoryStk();
+            
         }
 
-        private void refreshHistoryStk()
+        private void refreshHistoryStk(DateTime date)
         {
             shoppingUserControls = new List<shoppingUserControl>();
-            var buys = bl.getBuys();
+            var buys = bl.getApprovedBuys();
             HistoryStk.Children.Clear();
 
             if (buys != null)
             {
                 foreach (var buy in buys)
                 {
-                    if (buy.isApproved == true)
+                    if (buy.isApproved == true &&  buy.date == date)
                     {
                         shoppingUserControl shoppingUserControl = new shoppingUserControl(buy, bl, false, this);
                         HistoryStk.Children.Add(shoppingUserControl);
@@ -179,7 +174,7 @@ namespace WindowsSystemsEngineeringProject
 
                 var ruls = bl.AI();
 
-                string buyList = "";
+                string buyList = "רשימת קניות ליום " + date.ToString("dd / MM / yyyy") + ":\n";
 
                 foreach (var rule in ruls)
                 {
@@ -197,22 +192,24 @@ namespace WindowsSystemsEngineeringProject
                 }
 
                 // Must have write permissions to the path folder
-                PdfWriter writer = new PdfWriter(@"..\..\..\buy lists\list for " + date.ToString("dd_MM_yyyy") + ".pdf");
-                PdfDocument pdf = new PdfDocument(writer);
-                Document document = new Document(pdf);
-                iText.Layout.Element.Paragraph header = new iText.Layout.Element.Paragraph("רשימת קניות ליום " + date.ToString("dd/MM/yyyy") + ":")
-                   .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
-                   .SetFontSize(20);
+                //PdfWriter writer = new PdfWriter(@"..\..\..\buy lists\list for " + date.ToString("dd_MM_yyyy") + ".pdf");
+                //PdfDocument pdf = new PdfDocument(writer);
+                //Document document = new Document(pdf);
+                //iText.Layout.Element.Paragraph header = new iText.Layout.Element.Paragraph("רשימת קניות ליום " + date.ToString("dd/MM/yyyy") + ":")
+                //   .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
+                //   .SetFontSize(20);
 
-                document.Add(header);
+                //document.Add(header);
 
-                LineSeparator ls = new LineSeparator(new iText.Kernel.Pdf.Canvas.Draw.SolidLine());
-                document.Add(ls);
+                //LineSeparator ls = new LineSeparator(new iText.Kernel.Pdf.Canvas.Draw.SolidLine());
+                //document.Add(ls);
 
-                iText.Layout.Element.Paragraph paragraph1 = new iText.Layout.Element.Paragraph(buyList);
-                document.Add(paragraph1);
+                //iText.Layout.Element.Paragraph paragraph1 = new iText.Layout.Element.Paragraph(buyList);
+                //document.Add(paragraph1);
 
-                document.Close();
+                //document.Close();
+
+                MessageBox.Show(buyList);
             }
             catch (Exception e1)
             {
@@ -222,6 +219,11 @@ namespace WindowsSystemsEngineeringProject
             
 
             
+        }
+
+        private void HistoryDtp_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            refreshHistoryStk((DateTime)HistoryDtp.SelectedDate);
         }
     }
 }

@@ -13,7 +13,7 @@
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-        Title="MainWindow" Height="830" Width="1430" FlowDirection="RightToLeft">
+        Title="MainWindow" Height="830" Width="1435" FlowDirection="RightToLeft">
 
 
     <Grid>
@@ -31,10 +31,10 @@
                         Kind="refresh" Width="30" Height="30" Foreground="#FF1B0505" />
                     </Button>
 
-                    <materialDesign:Card
+                    <materialDesign:Card x:Name="titel"
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
                           Padding="32"
-                          Content="ערב טוב" Margin="10,10,0,0" FontSize="50" Height="127" VerticalAlignment="Top" HorizontalAlignment="Left" Width="500" />
+                          Content="{Binding titel}" Margin="10,10,0,0" FontSize="50" Height="127" VerticalAlignment="Top" HorizontalAlignment="Left" Width="500" />
 
                     <materialDesign:Card
                           materialDesign:ShadowAssist.ShadowDepth="Depth1"
@@ -53,16 +53,16 @@
                     
                       materialDesign:ShadowAssist.ShadowDepth="Depth1"
                       Padding="32" Margin="10,156,0,0" Height="300" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" >
-                        <lvc:PieChart x:Name="storePieChart" LegendLocation="Bottom"  Hoverable="False" DataTooltip="{x:Null}" Margin="0,0,-5,-4" FlowDirection="RightToLeft" HorizontalAlignment="Left" Width="236">
+                        <lvc:PieChart x:Name="storePieChart" LegendLocation="Bottom"  Hoverable="False" DataTooltip="{x:Null}" Margin="-20,0,-20,-20" FlowDirection="RightToLeft">
                             <lvc:PieChart.Series>
                                 <lvc:PieSeries Title="Maria" Values="4" DataLabels="True"
-                               LabelPoint="{Binding PointLabel}"/>
+                                    LabelPoint="{Binding PointLabel}"/>
                                 <lvc:PieSeries Title="Charles" Values="4" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
+                                    LabelPoint="{Binding PointLabel}"/>
                                 <lvc:PieSeries Title="Frida" Values="6" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
+                                    LabelPoint="{Binding PointLabel}"/>
                                 <lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" 
-                               LabelPoint="{Binding PointLabel}"/>
+                                    LabelPoint="{Binding PointLabel}"/>
                             </lvc:PieChart.Series>
                         </lvc:PieChart>
                     </materialDesign:Card>
@@ -75,7 +75,7 @@
                                 <lvc:Axis Title="יום בשבוע" Labels="{Binding WeekChartLabels}"/>
                             </lvc:CartesianChart.AxisX>
                             <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Title="מחיר\כמות מוצרים" LabelFormatter="{Binding Formatter}"/>
+                                <lvc:Axis Title="" LabelFormatter="{Binding Formatter}"/>
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
                     </materialDesign:Card>
@@ -88,7 +88,7 @@
                                 <lvc:Axis Title="חודש" Labels="{Binding MonthChartLabels}"/>
                             </lvc:CartesianChart.AxisX>
                             <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Title="מחיר\כמות מוצרים" LabelFormatter="{Binding Formatter}"/>
+                                <lvc:Axis Title="" LabelFormatter="{Binding Formatter}"/>
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
                     </materialDesign:Card>
@@ -99,18 +99,15 @@
                             <ComboBox x:Name="cmbProductTime" Height="38" Margin="40,25,40,217" SelectionChanged="cmbProductTime_SelectionChanged" FontSize="16"  />
                             <lvc:CartesianChart Series="{Binding productTimeChart}" LegendLocation="Left" Margin="15,68,15,10" FlowDirection="RightToLeft">
                                 <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Title="חודש" Labels="{Binding productTimeChartLabels}"/>
+                                    <lvc:Axis Title="שבוע" Labels="{Binding productTimeChartLabels}"/>
                                 </lvc:CartesianChart.AxisX>
                                 <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis Title="מחיר\כמות מוצרים" LabelFormatter="{Binding Formatter}"/>
+                                    <lvc:Axis Title="" LabelFormatter="{Binding Formatter}"/>
                                 </lvc:CartesianChart.AxisY>
                             </lvc:CartesianChart>
 
                         </Grid>
                     </materialDesign:Card>
-                    <materialDesign:Card
-                        materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                        Padding="32" Margin="1040,476,0,0" Height="300" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" />
                     <materialDesign:Card
                         materialDesign:ShadowAssist.ShadowDepth="Depth1"
                         Padding="32" Margin="840,156,0,0" Height="300" VerticalAlignment="Top" HorizontalAlignment="Left" Width="500" >
@@ -118,20 +115,28 @@
                             <ComboBox x:Name="cmbStoreTime" Height="38" Margin="40,25,40,217"  FontSize="16" SelectionChanged="cmbStoreTime_SelectionChanged"  />
                             <lvc:CartesianChart Series="{Binding storeTimeChart}" LegendLocation="Left" Margin="15,68,15,10" FlowDirection="RightToLeft">
                                 <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Title="חודש" Labels="{Binding storeTimeChartLabels}"/>
+                                    <lvc:Axis Title="שבוע" Labels="{Binding storeTimeChartLabels}"/>
                                 </lvc:CartesianChart.AxisX>
                                 <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis Title="מחיר\כמות מוצרים" LabelFormatter="{Binding Formatter}"/>
+                                    <lvc:Axis Title="" LabelFormatter="{Binding Formatter}"/>
                                 </lvc:CartesianChart.AxisY>
                             </lvc:CartesianChart>
 
                         </Grid>
                     </materialDesign:Card>
+                    <materialDesign:Card
+                        
+                    
+                        materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                        Padding="32" Margin="1040,476,0,0" Height="300" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300" >
+                        <lvc:PieChart x:Name="productPieChart" LegendLocation="Bottom"  Hoverable="False" DataTooltip="{x:Null}" Margin="-20,0,-20,-20" FlowDirection="RightToLeft"/>
+                    </materialDesign:Card>
                 </Grid>
             </TabItem>
             <TabItem Header="{materialDesign:PackIcon Kind=History, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}" ContextMenuOpening="TabItem_ContextMenuOpening">
                 <Grid x:Name="HistoryGrid">
-                    <ScrollViewer Margin="10">
+                    <DatePicker x:Name="HistoryDtp" Margin="530,99,530,655"  SelectedDateChanged="HistoryDtp_SelectedDateChanged"></DatePicker>
+                    <ScrollViewer Margin="10,206,10,10">
                         <StackPanel x:Name="HistoryStk" Loaded="HistoryStk_Loaded"/>
                     </ScrollViewer>
                 </Grid>

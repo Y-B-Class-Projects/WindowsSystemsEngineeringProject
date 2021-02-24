@@ -10,7 +10,7 @@ namespace DataLayer
 {
     public class ProductsContext : DbContext
     {
-        public ProductsContext() : base("ProductsDB2")
+        public ProductsContext() : base("ProductsDB")
         {
 
         }

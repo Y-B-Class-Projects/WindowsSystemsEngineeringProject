@@ -11,7 +11,7 @@ namespace BusinessEntities
     public class buy
     {
         [Key, Column(Order = 0)]
-        public long productID { get; set; }
+        public int productID { get; set; }
 
         [Key, Column(Order = 1)]
         public DateTime date { get; set; }

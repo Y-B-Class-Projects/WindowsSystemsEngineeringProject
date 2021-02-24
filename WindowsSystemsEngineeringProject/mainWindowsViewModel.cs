@@ -15,6 +15,8 @@ namespace WindowsSystemsEngineeringProject
     {
         BL bl;
 
+        public string titel { get; set; }
+
         public SeriesCollection MonthChart { get; set; }
         public SeriesCollection WeekChart { get; set; }
         public SeriesCollection productTimeChart { get; set; }
@@ -30,11 +32,13 @@ namespace WindowsSystemsEngineeringProject
         //public Func<ChartPoint, string> PointLabel { get; set; }
 
         PieChart storePieChart;
+        PieChart productPieChart;
 
-        public mainWindowsViewModel(BL bl, PieChart storePieChart)
+        public mainWindowsViewModel(BL bl, PieChart storePieChart, PieChart productPieChart)
         {
             this.bl = bl;
             this.storePieChart = storePieChart;
+            this.productPieChart = productPieChart;
 
             MonthChart = new SeriesCollection
             {
@@ -98,9 +102,27 @@ namespace WindowsSystemsEngineeringProject
             refreshMonthChart();
             refreshWeekChart();
             refreshstorePieChart();
+            refreshProductPieChart();
+            refreshTitle();
         }
 
-        public string PointLabel(ChartPoint chartPoint)
+        public void refreshTitle()
+        {
+            int hourNow = DateTime.Now.Hour;
+
+            if (hourNow < 12)
+                titel = "בוקר טוב";
+            else if (hourNow == 12)
+                titel = "צהריים טובים";
+            else if (hourNow > 12)
+                titel = "אחר הצהריים טובים";
+            else
+                titel = "ערב טוב";
+
+        }
+
+
+            public string PointLabel(ChartPoint chartPoint)
         {
             var ret = string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
             return ret;
@@ -140,6 +162,29 @@ namespace WindowsSystemsEngineeringProject
                     LabelPoint = PointLabel
                 }) ;
             }
+        }
+
+        public void refreshProductPieChart()
+        {
+            productPieChart.Series = new SeriesCollection();
+
+            var CommonProducts = bl.getCommonProducts();
+
+            if (CommonProducts != null)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    productPieChart.Series.Add(new PieSeries
+                    {
+                        Title = bl.getProduct(CommonProducts[i, 1]).productName,
+                        Values = new ChartValues<double> { CommonProducts[i, 0] },
+                        DataLabels = true,
+                        LabelPoint = PointLabel
+                    });
+
+                }
+            }
+
         }
 
         internal void refreshStoreTimeChart(string storeName)
